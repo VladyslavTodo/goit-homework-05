@@ -38,6 +38,7 @@ img {
 
 button {
   cursor: pointer;
+  padding: 0;
 }
 
 .list {
@@ -130,9 +131,9 @@ button {
   line-height: 1.5;
   letter-spacing: 0.02em;
 
-  padding: 24px 0;
+  padding: 24px 0 28px;
 
-  transition: 0.2s linear;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-link:hover,
@@ -157,13 +158,26 @@ button {
   line-height: 1.5;
   letter-spacing: 0.02em;
 
-  padding: 24px 0;
+  padding: 24px 0 28px;
 
-  transition: 0.2s linear;
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .active {
+  position: relative;
   color: var(--accent-color);
+}
+
+.active::after {
+  position: absolute;
+  content: '';
+  display: block;
+  background: var(--accent-color);
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
 }
 
 /*=========== HERO =========*/
@@ -214,7 +228,7 @@ button {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 
   cursor: pointer;
-  transition: 0.2s linear;
+  transition: background 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hero-button:hover,
@@ -337,7 +351,7 @@ button {
   height: 40px;
   border-radius: 50%;
   background-color: var(--button-color);
-  transition: 0.2s linear;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .social-list-link:hover,
@@ -375,7 +389,7 @@ button {
   align-items: center;
   width: 100%;
   height: 100%;
-  transition: 0.2s linear;
+  transition: border 250ms cubic-bezier(0.4, 0, 0.2, 1);
   color: #8e8f99;
 }
 
@@ -383,7 +397,7 @@ button {
   width: 104px;
   height: 56px;
   fill: #8e8f99;
-  transition: 0.2s linear;
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .costumers-list-link:hover .costumers-list-ico,
@@ -453,7 +467,7 @@ button {
   height: 40px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.1);
-  transition: 0.2s linear;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-list-link:hover,
@@ -495,7 +509,10 @@ button {
   border: 1px solid #e7e9fc;
 
   cursor: pointer;
-  transition: 0.2s linear;
+  transition: background 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .filter-btn:hover,
@@ -518,7 +535,7 @@ button {
   color: inherit;
   display: block;
   box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08);
-  transition: 0.2s linear;
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .projects-item-link:hover,
@@ -548,4 +565,97 @@ button {
   letter-spacing: 0.02em;
 
   color: var(--secondary-color);
+}
+
+.projects-overlay-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.projects-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+  transform: translateY(100%);
+
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: #f4f4fd;
+  background-color: var(--button-color);
+
+  padding: 40px 32px;
+
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.projects-item-link:hover .projects-overlay,
+.projects-item-link:focus .projects-overlay {
+  transform: translateY(0);
+}
+
+/*=========== MODAL =========*/
+
+.backdrop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(46, 47, 66, 0.4);
+  z-index: 999;
+  transform: scale(1);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(0.5);
+}
+
+.modal {
+  position: absolute;
+  width: 408px;
+  height: 576px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  background: #fcfcfc;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.modal-close {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  width: 24px;
+  height: 24px;
+  background: #e7e9fc;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-close-ico {
+  width: 8px;
+  height: 8px;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  background-color: var(--accent-color);
+  fill: var(--white-color);
 }
